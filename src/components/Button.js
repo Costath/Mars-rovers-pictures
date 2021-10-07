@@ -19,11 +19,8 @@ const Button = () => {
     setSearchUrl();
     const response = await fetch(urlReady);
     const responseJson = await response.json();
-    await console.log("responseJson.photos: ");
-    await console.log(responseJson.photos);
-    await setPictures(responseJson.photos);
-    await console.log("pictures: ");
-    await console.log(pictures);
+    console.log(responseJson);
+    setPictures(responseJson.photos);
   };
 
   useEffect(() => {
