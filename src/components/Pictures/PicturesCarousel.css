@@ -3,13 +3,11 @@
 }
 
 .main {
-  background-color: blue;
   height: 300px;
   width: 600px;
 }
 
 .secondary {
-  background-color: brown;
   height: 100px;
   width: 200px;
 }
