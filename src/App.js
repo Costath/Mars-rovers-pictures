@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import PicturesCarousel from "./components/Pictures/PicturesCarousel";
@@ -62,17 +63,34 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <NavBar />
-      <SearchParameters
-        onRoverChange={handleRoverChange}
-        onCameraChange={handleCameraChange}
-        onFormSubmit={handleFormSubmit}
-        selectedRover={rover}
-        selectedCamera={camera}
-      />
-      <PicturesCarousel src={pictureUrl} />
-      <PicturesBox pictures={pictures} onPictureClick={handlePictureClick} />
+    <div>
+      <Router>
+        <NavBar />
+        <div className="container">
+          <Switch>
+            <Route path="/home">
+              <h2>home</h2>
+            </Route>
+            <Route path="/pictures">
+              <SearchParameters
+                onRoverChange={handleRoverChange}
+                onCameraChange={handleCameraChange}
+                onFormSubmit={handleFormSubmit}
+                selectedRover={rover}
+                selectedCamera={camera}
+              />
+              <PicturesCarousel src={pictureUrl} />
+              <PicturesBox
+                pictures={pictures}
+                onPictureClick={handlePictureClick}
+              />
+            </Route>
+            <Route path="/rovers">
+              <h2>rovers</h2>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }
