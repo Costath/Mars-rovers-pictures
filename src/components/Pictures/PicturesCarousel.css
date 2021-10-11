@@ -1,17 +1,12 @@
 .picture {
   margin: 15px;
+  border-radius: 10px;
 }
 
 .main {
   height: 300px;
-  width: 600px;
 }
 
 .secondary {
   height: 100px;
-  width: 200px;
-}
-
-.secondary:hover {
-  transform: scale(1.1);
 }

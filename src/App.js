@@ -1,56 +1,79 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
+
 import PicturesCarousel from "./components/Pictures/PicturesCarousel";
-import SearchParameters from "./components/SearchParameters";
+import SearchParameters from "./components/SearchParameters/SearchParameters";
+import PicturesBox from "./components/Pictures/PicturesBox";
+import NavBar from "./components/NavBar";
 
 function App() {
+  const [rover, setRover] = useState("");
   const [camera, setCamera] = useState("");
   const [pictures, setPictures] = useState([]);
+  const [pictureUrl, setpictureUrl] = useState("");
 
-  let urlReady;
+  //String that will hold the final url used to make the API request
+  let urlReady = "";
 
+  //Preparest the url for the API request
   const setSearchUrl = () => {
-    const baseUrl =
-      "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000";
-    const apiKey = "&api_key=7W9em6nCYW1xLdBfcviGYFyh9quAQdoQSdxdh3sT";
-
+    //String that will hold the camera query parameter, if any is set (to retrieve results from "all cameras", the key and the value are ommited)
     let cameraUrlParameter = "";
     camera === "All Cameras"
       ? (cameraUrlParameter = "")
       : (cameraUrlParameter = "&camera=" + camera);
 
-    urlReady = baseUrl + cameraUrlParameter + apiKey;
+    //concatenates the url before making the request
+    urlReady =
+      "https://api.nasa.gov/mars-photos/api/v1/rovers/" +
+      rover +
+      "/photos?sol=1000&page=1" +
+      cameraUrlParameter +
+      "&api_key=7W9em6nCYW1xLdBfcviGYFyh9quAQdoQSdxdh3sT";
   };
 
+  //Fetches the API data and updates the state
   const fetchAPIData = async () => {
     setSearchUrl();
     const response = await fetch(urlReady);
     const responseJson = await response.json();
-    // console.log(responseJson);
     setPictures(responseJson.photos);
+    // setpictureUrl(responseJson.photos[0].img_src);
   };
 
-  useEffect(() => {
-    fetchAPIData();
-  }, []);
+  //Updates the state when the rover is changed
+  const handleRoverChange = (event) => {
+    setRover(event.target.value);
+  };
 
+  //Updates the state when the camera is changed
   const handleCameraChange = (event) => {
     setCamera(event.target.value);
   };
 
+  //Prevents the default form submition and calls fetchAPIData() to make the API request
   const handleFormSubmit = (event) => {
     event.preventDefault();
     fetchAPIData();
   };
 
+  const handlePictureClick = (event) => {
+    setpictureUrl(event.target.src);
+  };
+
   return (
-    <>
+    <div className="container">
+      <NavBar />
       <SearchParameters
+        onRoverChange={handleRoverChange}
         onCameraChange={handleCameraChange}
         onFormSubmit={handleFormSubmit}
+        selectedRover={rover}
+        selectedCamera={camera}
       />
-      <PicturesCarousel pictures={pictures} />
-    </>
+      <PicturesCarousel src={pictureUrl} />
+      <PicturesBox pictures={pictures} onPictureClick={handlePictureClick} />
+    </div>
   );
 }
 
