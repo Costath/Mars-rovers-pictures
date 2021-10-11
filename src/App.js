@@ -11,7 +11,7 @@ function App() {
   const [rover, setRover] = useState("");
   const [camera, setCamera] = useState("");
   const [pictures, setPictures] = useState([]);
-  const [pictureUrl, setpictureUrl] = useState("");
+  const [pictureUrl, setPictureUrl] = useState("");
 
   //String that will hold the final url used to make the API request
   let urlReady = "";
@@ -58,8 +58,9 @@ function App() {
     fetchAPIData();
   };
 
+  //Updates the state with the url to the picture being viewed after clicking a picture in the PictureBox
   const handlePictureClick = (event) => {
-    setpictureUrl(event.target.src);
+    setPictureUrl(event.target.src);
   };
 
   return (

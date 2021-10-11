@@ -1,21 +1,27 @@
-.pictureBox {
+.pictureBoxImages {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
+}
+
+.pictureBoxImages > img {
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.pictureBox {
   width: 1200px;
   margin: 40px 0px 20px;
   background-color: rgb(155, 186, 245);
   border-radius: 20px;
 }
 
-.pictureBox > img {
-  height: 100px;
-  margin: 10px;
-  border-radius: 10px;
+.pictureBox > p {
+  text-align: center;
 }
 
-h2 {
+.pictureBox h2 {
   margin-left: 20px;
 }
 
