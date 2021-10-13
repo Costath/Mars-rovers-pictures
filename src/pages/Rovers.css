@@ -15,10 +15,10 @@
 
 .roverInformation {
   display: grid;
-  grid-template-columns: auto 600px;
+  grid-template-columns: 600px auto;
   grid-template-areas:
-    "picture details"
-    "picture story";
+    "details picture"
+    "story picture";
 }
 
 .roverImg {

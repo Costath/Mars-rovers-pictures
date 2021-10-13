@@ -52,27 +52,23 @@ const Rovers = (props) => {
   return (
     <>
       <p>Select a rover:</p>
-      {roversNames.map((roverName, key) => (
-        <span key={key}>
-          <input
-            name="rover"
-            type="radio"
-            id={roverName}
-            value={roverName}
-            onChange={onRoverChange}
-          />
-          <label htmlFor={roverName}>{roverName}</label>
-          <br />
-        </span>
-      ))}
+      <div>
+        {roversNames.map((roverName, key) => (
+          <span key={key}>
+            <input
+              name="rover"
+              type="radio"
+              id={roverName}
+              value={roverName}
+              onChange={onRoverChange}
+            />
+            <label htmlFor={roverName}>{roverName}</label>
+            <br />
+          </span>
+        ))}
+      </div>
       {rover !== "" ? (
         <div className="roverInformation">
-          <img
-            src={`/images/${rover}.jpg`}
-            alt={`Nasa's ${rover} rover`}
-            className="roverImg"
-          />
-
           <div className="roverDetails">
             <div className="title">Name: </div>
             <div className="content">{rover}</div>
@@ -96,6 +92,11 @@ const Rovers = (props) => {
           <div className="roverStory">
             <RoversStory rover={rover} />
           </div>
+          <img
+            src={`/images/${rover}.jpg`}
+            alt={`Nasa's ${rover} rover`}
+            className="roverImg"
+          />
         </div>
       ) : (
         <h2>Select a rover to learn more about it</h2>
