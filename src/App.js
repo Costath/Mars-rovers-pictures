@@ -6,6 +6,7 @@ import PicturesCarousel from "./components/Pictures/PicturesCarousel";
 import SearchParameters from "./components/SearchParameters/SearchParameters";
 import PicturesBox from "./components/Pictures/PicturesBox";
 import NavBar from "./components/NavBar";
+import Rovers from "./pages/Rovers";
 
 function App() {
   const [rover, setRover] = useState("");
@@ -87,7 +88,8 @@ function App() {
               />
             </Route>
             <Route path="/rovers">
-              <h2>rovers</h2>
+              {/* <Rovers rovers={["Curiosity", "Opportunity", "Spirit"]}></Rovers> */}
+              <Rovers />
             </Route>
           </Switch>
         </div>
