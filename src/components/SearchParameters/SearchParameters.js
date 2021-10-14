@@ -67,8 +67,8 @@ const SearchParameters = (props) => {
   };
 
   return (
-    <div className="searchOptions">
-      <form onSubmit={props.onFormSubmit}>
+    <>
+      <form onSubmit={props.onFormSubmit} className="searchOptions">
         <div className="roverOptions">
           <p>Select a rover:</p>
           {roverNames.map((rover, key) => (
@@ -106,8 +106,8 @@ const SearchParameters = (props) => {
           })}
           <br />
         </div>
-        <br />
-        <div id="submitButtonDiv">
+        {/* <br /> */}
+        <div className="submitButtonDiv">
           <button
             disabled={props.selectedCamera === "" || props.selectedRover === ""}
           >
@@ -115,7 +115,7 @@ const SearchParameters = (props) => {
           </button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 
