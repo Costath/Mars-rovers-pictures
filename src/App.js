@@ -26,12 +26,7 @@ function App() {
       : (cameraUrlParameter = "&camera=" + camera);
 
     //concatenates the url before making the request
-    urlReady =
-      "https://api.nasa.gov/mars-photos/api/v1/rovers/" +
-      rover +
-      "/photos?sol=1000&page=1" +
-      cameraUrlParameter +
-      "&api_key=7W9em6nCYW1xLdBfcviGYFyh9quAQdoQSdxdh3sT";
+    urlReady = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=1000&page=1${cameraUrlParameter}&api_key=7W9em6nCYW1xLdBfcviGYFyh9quAQdoQSdxdh3sT`;
   };
 
   //Fetches the API data and updates the state
