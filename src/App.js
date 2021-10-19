@@ -13,29 +13,47 @@ function App() {
   const [camera, setCamera] = useState("");
   const [pictures, setPictures] = useState([]);
   const [pictureUrl, setPictureUrl] = useState("");
+  const [{ currentPage, lastPage }, setPage] = useState({
+    currentPage: 1,
+    lastPage: 1,
+  });
 
   //String that will hold the final url used to make the API request
   let urlReady = "";
 
-  //Preparest the url for the API request
-  const setSearchUrl = () => {
+  const fetchAPIData = async (page) => {
     //String that will hold the camera query parameter, if any is set (to retrieve results from "all cameras", the key and the value are ommited)
     let cameraUrlParameter = "";
     camera === "All Cameras"
       ? (cameraUrlParameter = "")
       : (cameraUrlParameter = "&camera=" + camera);
 
-    //concatenates the url before making the request
-    urlReady = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=1000&page=1${cameraUrlParameter}&api_key=7W9em6nCYW1xLdBfcviGYFyh9quAQdoQSdxdh3sT`;
+    //Fetches the API data and update the state with the response
+    const response = await fetch(
+      `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=1000&page=${page}${cameraUrlParameter}&api_key=7W9em6nCYW1xLdBfcviGYFyh9quAQdoQSdxdh3sT`
+    );
+    const responseJson = await response.json();
+    setPictures(responseJson.photos || []);
   };
 
-  //Fetches the API data and updates the state
-  const fetchAPIData = async () => {
-    setSearchUrl();
-    const response = await fetch(urlReady);
-    const responseJson = await response.json();
-    setPictures(responseJson.photos);
-    // setpictureUrl(responseJson.photos[0].img_src);
+  //Fetches the API again without the page parameter to calculate the number of pages
+  const fetchLastPageNumber = async () => {
+    let cameraUrlParameter = "";
+    camera === "All Cameras"
+      ? (cameraUrlParameter = "")
+      : (cameraUrlParameter = "&camera=" + camera);
+
+    const pagesResponse = await fetch(
+      `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=1000${cameraUrlParameter}&api_key=7W9em6nCYW1xLdBfcviGYFyh9quAQdoQSdxdh3sT`
+    );
+    const lastPageResponse = await pagesResponse.json();
+
+    setPage((previousState) => {
+      return {
+        currentPage: previousState.currentPage,
+        lastPage: Math.ceil(lastPageResponse.photos.length / 25),
+      };
+    });
   };
 
   //Updates the state when the rover is changed
@@ -51,12 +69,44 @@ function App() {
   //Prevents the default form submition and calls fetchAPIData() to make the API request
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetchAPIData();
+    setPage({
+      currentPage: 1,
+      lastPage: 1,
+    });
+
+    fetchAPIData(1);
+    fetchLastPageNumber();
   };
 
   //Updates the state with the url to the picture being viewed after clicking a picture in the PictureBox
   const handlePictureClick = (event) => {
     setPictureUrl(event.target.src);
+  };
+
+  //When click previous page, updates the state and fetches the API for the previous page
+  const handlePreviousPageClick = () => {
+    setPage((previousState) => {
+      return {
+        currentPage: previousState.currentPage - 1,
+        lastPage: previousState.lastPage,
+      };
+    });
+    fetchAPIData(currentPage - 1);
+  };
+
+  //When click next page, updates the state and fetches the API for the next page
+  const handleNextPageClick = () => {
+    setPage((previousState) => {
+      return {
+        currentPage: previousState.currentPage + 1,
+        lastPage: previousState.lastPage,
+      };
+    });
+    fetchAPIData(currentPage + 1);
+  };
+
+  const handleCloseClick = () => {
+    setPictureUrl("");
   };
 
   return (
@@ -76,10 +126,17 @@ function App() {
                 selectedRover={rover}
                 selectedCamera={camera}
               />
-              <PicturesCarousel src={pictureUrl} />
+              <PicturesCarousel
+                onCloseClick={handleCloseClick}
+                src={pictureUrl}
+              />
               <PicturesBox
                 pictures={pictures}
                 onPictureClick={handlePictureClick}
+                onPreviousPageClick={handlePreviousPageClick}
+                onNextPageClick={handleNextPageClick}
+                currentPage={currentPage}
+                lastPage={lastPage}
               />
             </Route>
             <Route path="/rovers">
