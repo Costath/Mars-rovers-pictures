@@ -25,7 +25,7 @@ const Home = () => {
         <br />
         The pictures and the details about the rovers are obtained from an API
         provided by NASA. More specifically, the API called 'Mars Rover Photos'.
-        You can find more information on the
+        You can find more information on the&nbsp;
         <a href="https://api.nasa.gov/">Official NASA API portal</a>
       </p>
     </>
