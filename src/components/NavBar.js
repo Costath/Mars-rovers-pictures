@@ -6,7 +6,7 @@ import "./NavBar.css";
 const NavBar = () => {
   return (
     <nav>
-      <ul>
+      <ul className="navLinks">
         <li>
           <NavLink to="/home" activeClassName="active">
             Home
