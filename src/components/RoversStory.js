@@ -36,6 +36,11 @@ const RoversStory = (props) => {
           its wheels, the tether was cut, and the landing system flew off to
           crash-land a safe distance away.
         </p>
+        <h4>
+          <a href="https://mars.nasa.gov/msl/mission/overview/">
+            Source: mars.nasa.gov
+          </a>
+        </h4>
       </>
     );
   } else if (props.rover === "Opportunity") {
@@ -56,6 +61,11 @@ const RoversStory = (props) => {
           Valley. Opportunity stopped communicating with Earth after a severe
           Mars-wide dust storm blanketed its location in June 2018.
         </p>
+        <h4>
+          <a href="https://solarsystem.nasa.gov/missions/opportunity/in-depth/">
+            Source: solarsystem.nasa.gov
+          </a>
+        </h4>
       </>
     );
   } else if (props.rover === "Spirit") {
@@ -73,6 +83,11 @@ const RoversStory = (props) => {
           NASA ended efforts to contact the marooned rover and declared its
           mission complete. The rover had been silent since March 2010.
         </p>
+        <h4>
+          <a href="https://solarsystem.nasa.gov/missions/spirit/in-depth/">
+            Source: solarsystem.nasa.gov
+          </a>
+        </h4>
       </>
     );
   } else {
