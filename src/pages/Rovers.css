@@ -14,8 +14,9 @@
 }
 
 .roverInformation {
+  padding: 2%;
   display: grid;
-  grid-template-columns: 600px auto;
+  grid-template-columns: 40% 60%;
   grid-template-areas:
     "details picture"
     "story picture";
@@ -24,6 +25,7 @@
 .roverImg {
   grid-area: picture;
   margin: 20px;
+  width: 85%;
 }
 
 .roverDetails {
