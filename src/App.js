@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 
 import PicturesCarousel from "./components/Pictures/PicturesCarousel";
@@ -17,9 +22,6 @@ function App() {
     currentPage: 1,
     lastPage: 1,
   });
-
-  //String that will hold the final url used to make the API request
-  let urlReady = "";
 
   const fetchAPIData = async (page) => {
     //String that will hold the camera query parameter, if any is set (to retrieve results from "all cameras", the key and the value are ommited)
@@ -115,6 +117,9 @@ function App() {
         <NavBar />
         <div className="container">
           <Switch>
+            <Route path="/" exact>
+              <Redirect to="/home" />
+            </Route>
             <Route path="/home">
               <h2>home</h2>
             </Route>
@@ -140,7 +145,6 @@ function App() {
               />
             </Route>
             <Route path="/rovers">
-              {/* <Rovers rovers={["Curiosity", "Opportunity", "Spirit"]}></Rovers> */}
               <Rovers />
             </Route>
           </Switch>
