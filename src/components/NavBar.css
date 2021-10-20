@@ -16,13 +16,13 @@ li {
   margin-right: 10px;
 }
 
-.active {
+li a.active {
   background-color: rgb(203, 220, 250);
   color: black;
   font-weight: bolder;
 }
 
-a {
+.navLinks a {
   color: white;
   text-decoration: none;
   padding: 16px;
