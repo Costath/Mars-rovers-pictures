@@ -12,6 +12,7 @@ import SearchParameters from "./components/SearchParameters/SearchParameters";
 import PicturesBox from "./components/Pictures/PicturesBox";
 import NavBar from "./components/NavBar";
 import Rovers from "./pages/Rovers";
+import Home from "./pages/Home";
 
 function App() {
   const [rover, setRover] = useState("");
@@ -121,7 +122,7 @@ function App() {
               <Redirect to="/home" />
             </Route>
             <Route path="/home">
-              <h2>home</h2>
+              <Home />
             </Route>
             <Route path="/pictures">
               <SearchParameters
